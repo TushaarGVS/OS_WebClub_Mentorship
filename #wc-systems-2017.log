@@ -1,0 +1,282 @@
+--- Log opened Mon Dec 04 17:48:45 2017
+17:48 -!- tushaar [~tushaar@218.248.46.107] has joined #wc-Systems-2017
+18:00 < tushaar> Hey you guys!
+18:00 < tushaar> I am Tushaar. 3rd year IT.
+18:10 < tushaar> Okay! Let us get started.
+18:10 < viggi> cool
+18:10 < tushaar> Welcome to Web Club Mentorship 2017.
+18:11 < tushaar> Before we get started, one side note on how sessions will proceed.
+18:12 < tushaar> As far as OS is concerned, you can contact me for any doubts at tushaargvsg45@gmail.com or via whatsapp.
+18:13 < tushaar> And these sessions will mostly be concept oriented. I will try to provide handouts of code, which you can run on your systems and check out the actual working!
+18:13 < tushaar> One last thing before we proceed.
+18:14 < tushaar> The course is intended to cover the following concepts in OS-
+18:15 < tushaar> 1. What is OS?
+18:15 < tushaar> 2. Process Management
+18:15 < tushaar> 3. Memory Management
+18:15 < tushaar> 4. Storage Management
+18:15 < tushaar> 5. Protection and Security
+18:16 < tushaar> For references, I will be strictly following, Abraham Silberschatz, Peter Baer Galvin, Greg Gagne, “Operating System Concepts”, Ninth Edition.
+18:16 < tushaar> Let's dive in!
+18:17 < tushaar> Okay, first of all, what is your understanding of OS?
+18:18 < tushaar> anyone?
+18:18 < doraemon> intermediate
+18:19 < tushaar> Correct.
+18:19 < tushaar> Precisely, A program that serves as an interface between the User and Computer Hardware
+18:20 < tushaar> Why do you need an OS?
+18:20 < tushaar> I'm assuming everyone knows the names of few OSs.
+18:21 < tushaar> If anyone can list a few for me.
+18:21 < akash_> windows,linux,mac os
+18:21 < neha___> dos
+18:21 < tushaar> Great!
+18:22 < tushaar> Now, for the previous question.
+18:22 < tushaar> Why is it important to use OS?
+18:22 < tushaar> Refer: https://ibin.co/3jWheURQCmTy.png
+18:23 < tushaar> Anyone?
+18:24 < tushaar> Okay.
+18:24 < tushaar> From the perspective of the System, it is a ‘Resource Allocator’- CPU allocation and Disk allotment (Process Scheduler and Manager) and from the perspective of the User, it is responsible for the ‘Ease of Use’ (Convenience and Efficiency)
+18:25 < tushaar> So in a nutshell, Main purpose- CPU Scheduling, Memory Management, Secondary Storage (Page Scheduling), IO Management
+18:26 < tushaar> The image presented above, the components of computer systems are presented clearly.
+18:27 < tushaar> Now, if I wanna use 'printf', can someone trace the way it is executed.
+18:28 < tushaar> Its okay if it is wrong. Give it a shot!
+18:29 < tushaar> Anyone?
+18:29 < akash_> printf->compiler(gcc or other)->system and application->os->hardware
+18:30 < tushaar> Precisely, Application program- say, printf
+18:30 < tushaar> The OS is responsible to call the write system call, in response to printf
+18:31 < tushaar> User does not have to worry about the implementation details
+18:31 < tushaar> Is it clear, so far?
+18:31 <@shilpi> yes
+18:32 < akash_> yes
+18:32 < neha___> yes
+18:32 < tushaar> Okay. Lets move on.
+18:32 < tushaar> Types of OS:
+18:32 < tushaar> 1. Batch OS
+18:32 < tushaar> 2. Multiprogramming
+18:33 < tushaar> 3. Multitasking
+18:33 < tushaar> 4. Multiprocessing
+18:33 < tushaar> 5. Real time OS
+18:34 < tushaar> Before we discuss on the types, I want you know that time for execution of an application program is composed of 2 parts/.
+18:34 < tushaar> 1. CPU time- Time for computation only
+18:34 < tushaar> 2. IO time- Time for read, write and other input-output bus operations
+18:34 < tushaar> So, Total time- CPU time + IO time
+18:35 < tushaar> Moving on to batch OS.
+18:35 < tushaar> Naive approach- Every job (application program) is presented to the OS and is scheduled at a later time
+18:36 < tushaar> Is naive approach clear?
+18:37 < tushaar> Now, can someone tell me what could be done in batch OS?
+18:37 < akash_> yes
+18:38 < tushaar> User gives jobs and collects the output later
+18:38 < tushaar> What happens in Batch OS- Jobs are bundleD, i.e, similar jobs are put together and made into a batch. Batch wise processing happens in these OS
+18:39 < tushaar> DIS-ADV: TIme consuming, Not interactive 
+18:39 < tushaar> Improper Resource Utilization
+18:41 < tushaar> For Job (J1) - CPU time = T(CPU), IO time = T(IO)
+18:41 < tushaar> Say T(IO) >> T(CPU); until IO is not complete, CPU stays idle and does not process any further jobs until this batch (precisely this job) is completely processed- Improper Resource Utilization
+18:42 < tushaar> Any questions?
+18:42 < akash_> no
+18:42 < shreyas> so the OS waits for the particular job/batch to complete?
+18:42 < tushaar> Can someone give an example of batch OS?
+18:43 < tushaar> Yeah @shreyas.
+18:43 < tushaar> User gives jobs and collects the output later
+18:44 < tushaar> An example of batch os?
+18:46 < tushaar> Examples include less interactive jobs like- multiple choice exams
+18:46 < tushaar> Self Study: Spooling 
+18:47 < tushaar> Next, we'll see multiprogramming os.
+18:47 < tushaar> The need for this OS emerged in order to overcome the issue of improper resource utilization
+18:48 < tushaar> Check this: https://imagebin.ca/v/3jX0PBqDkgNT
+18:49 < tushaar> Idea: CPU never stays idle!
+18:49 < tushaar> Goals: Process utilization, Efficiency
+18:49 < tushaar> DIS-ADV: Stalling (Starvation) isn’t completely eliminated
+18:50 < tushaar> Can someone tell me why starvation can occur here?
+18:51 < tushaar> Please people, make the session interactive!
+18:51 < shreyas> one process might need the io resources while another process is already using it
+18:51 < tushaar> Exactly!
+18:51 < tushaar> So the CPU wont be able to process more requests.
+18:51 < tushaar> Next is multitasking.
+18:51 < tushaar> Task = Job = Application program
+18:52 < tushaar> They are Time shared interactive systems
+18:52 < tushaar> Say we have an application with 4 jobs; each job is allocated ‘x’seconds- so fast that it seems like multitasking!
+18:52 < tushaar> 'x' is in the powers of 10e-9.
+18:52 < tushaar> Close relation between user and hardware- Interactiveness
+18:52 < tushaar> Examples include- online communication, credit card payment
+18:53 < tushaar> ADV: Interactive, Effective, Multi user
+18:53 < tushaar> DIS-ADV: Reliability- If a job takes more time than allotted, Security, Data communication issue- If a job finishes before the allotted time, how does it communicate
+18:54 < tushaar> Self Study: Single User and Multi User
+18:54 < tushaar> Any doubts so far?
+18:54 < shreyas> you said security is a disadvantage in it, then how come we can use it for credit card payments?
+18:55 < tushaar> Security not in terms of online payment security.
+18:55 < tushaar> Security in terms of job synchronizations
+18:56 < shreyas> oh,within the system ?
+18:56 < shreyas> cool!
+18:56 < tushaar> Yeah. Single user systems.
+18:57 < tushaar> Next is parallel systems.
+18:57 < tushaar> Multiprocessor systems with more than one CPU in close communication (using common bus and common clock)
+18:59 < tushaar> Tightly coupled systems- Processors share memory and a clock. 
+19:00 < tushaar> Communication generally, happens via Shared memory or message passing.
+19:00 < tushaar> It happens via shared memory in Tightly coupled systems.
+19:02 < tushaar> Concept of shared memory is simple. There is certain section of memory that helps in communication.
+19:03 < tushaar> The processes/ jobs dump messages in the shared memory with tags, indicating whom the message is intended to.
+19:04 < tushaar> In message passing, the messages are passed on for communication. They use FIFO (first in first out) channels, pipes, named pipes.
+19:05 < tushaar> We'll look into it when dealing with processes.
+19:05 < shreyas> the message passing occurs between the cpu's ?
+19:06 < tushaar> No between processes.
+19:06 < tushaar> Processes is a much more generalized term.
+19:07 < shreyas> ok 
+19:07 < tushaar> In context, it can be anything in the computer system that wishes to communicate with others.
+19:07 < tushaar> Now, there are two models of parallel systems.
+19:08 < tushaar> SMP and ASMP based on memory models.
+19:08 < tushaar> SMP is symmetric multiprocessing.
+19:09 < tushaar> ASMP is basically, Asymmetric MP model, also known as NUMA (non uniform multiprocessing).
+19:09 < tushaar> How many of you understand the concept of Master-Slave model?
+19:09 < shreyas> me.
+19:11 < tushaar> Others?
+19:13 < doraemon> me
+19:14 < tushaar> Mater-slave model is the one where one of the processes takes up the job of leader (leader election happens in distributed systems) and schedules jobs to other processes.
+19:15 < tushaar> Note that, I have used the term, 'processes' instead of 'processors' which is a more generic term.
+19:16 -!- Kuldeep_ [2a6a5edf@gateway/web/freenode/ip.42.106.94.223] has quit [Ping timeout: 260 seconds]
+19:17 < tushaar> DIS-ADV: Centralized failure point.
+19:18 < tushaar> Lastly, Realtime systems.
+19:18 < tushaar> Simple logic, 'Time' is everything.
+19:19 -!- shilpi [70c49f2e@gateway/web/freenode/ip.112.196.159.46] has quit [Quit: Page closed]
+19:21 < tushaar> Examples include- Military systems, Robotics and others.
+19:22 < tushaar> Self Study: Hard and Soft realtime systems.
+19:22 -!- Irssi: #wc-Systems-2017: Total of 5 nicks [0 ops, 0 halfops, 0 voices, 5 normal]
+19:24 < tushaar> Combination of systems can be classified either as Network OS or distributed OS.
+19:25 < tushaar> There are basically 4 generation of OS- Centralized, Network, Distributed and Cooperative autonomous.
+19:26 < tushaar> Much light will be thrown on these concepts while discussing Distributed Systems.
+19:28 < tushaar> Operating System Structures, Basis of Operating Systems, System Calls are elucidated on in Chapter 2 of the text book.
+19:31 < tushaar> Process stack is as follows: https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FxqZJ5.png&f=1
+19:32 < tushaar> A good read: https://stackoverflow.com/questions/3211600/how-does-a-stack-memory-increase
+19:33 < shilpi23pandey> What is bss?
+19:34 < tushaar> Its just a memory segment
+19:34 < shilpi23pandey> okay
+19:35 < tushaar> The article is just a side read.
+19:35 < tushaar> Read it for further information.
+19:35 < akash__> fine
+19:36 < tushaar> BSS stands for block storage start.
+19:37 < tushaar> Further details on the same can be found here: http://cs-fundamentals.com/c-programming/memory-layout-of-c-program-code-data-segments.php
+19:37 < shilpi23pandey> thanks
+19:37 < tushaar> Now, what is a process?
+19:38 < tushaar> Anyone?
+19:38 < tushaar> a program in execution; process execution must progress in sequential fashion
+19:38 < shilpi23pandey> program in execution?
+19:38 < tushaar> Now about that image!
+19:39 < tushaar> Yeah @shilpi
+19:39 < tushaar> The program code, also called text section
+19:39 < tushaar> Current activity including program counter, processor registers
+19:39 < tushaar> Stack containing temporary data
+19:39 < tushaar> (Function parameters, return addresses, local variables) - temporary data.
+19:39 < tushaar> Data section containing global variables
+19:40 < tushaar> Heap containing memory dynamically allocated during run time
+19:41 < tushaar> This is a simpler version- https://imagebin.ca/v/3jXGKQJdR6Lf
+19:41 < tushaar> Any doubts regarding process stack?
+19:41 < shreyas> no
+19:41 < shilpi23pandey> no
+19:42 < akash__> no
+19:42 < tushaar> Program is passive entity stored on disk (executable file), process is active. Program becomes process when executable file loaded into memory
+19:42 < tushaar> One program can be several processes. True or False?
+19:42 < akash__> true
+19:42 < shilpi23pandey> true
+19:42 < tushaar> Why?
+19:42 < Meenakshi> true
+19:43 < shreyas> true
+19:43 < shreyas> a single program may assign different jobs to take input, compute something and then provide output
+19:43 < akash__> contains several functions acting in a sequential order
+19:44 < akash__> according to requirement
+19:44 < tushaar> Yeah. True. Consider multiple users executing the same program!
+19:45 < tushaar> Before we jump to process states, let's see about kernel space and user space.
+19:46 < tushaar> As the name suggests, kernel mode is where the write system call (first example) executes. User space is where printf is issued and the results are captured.
+19:47 < tushaar> Now that's the basic concept, further details can be looked up in chapter 2 of the textbook.
+19:48 < tushaar> Dual mode of operation helps in the switch.
+19:48 < tushaar> There's a mode bit used to indicate.
+19:49 < tushaar> he Processor (CPU) has two modes (more than two, but assume it's just 2 for this discussion) - User mode and Privilege mode. Processor executes User space processes in User mode. This is basically to ensure that user space processes do not have more control than necessary (hence prevents malicious users from messing with the system's hardware). Now, when the user process has to make use of the hardware (for instance, File system or IO), it has to request the Kernel to do that on its behalf. It does so using a system call, which internally changes the CPU mode to privileged, hence providing the system call code full access to the system. 
+19:49 < tushaar> Dual-Mode Operation ,it allows OS to protect itself and other system components there is some thing called Mode bit provided by the hardware, it Provides ability to distinguish when system is running user code or kernel code.
+19:50 < tushaar> Is it clear?
+19:50 < shilpi23pandey> yeah
+19:51 < akash__> yes
+19:51 < tushaar> Process states.
+19:51 < shreyas> yes
+19:51 < Meenakshi> yes
+19:51 < tushaar> Look at this- https://imagebin.ca/v/3jXJZnuoNmHF
+19:53 < tushaar> As a process executes, it changes state
+19:53 < tushaar> 1. new:  The process is being created
+19:53 < tushaar> 2. running:  Instructions are being executed
+19:53 < tushaar> 3. waiting:  The process is waiting for some event to occur
+19:53 < tushaar> 4. ready:  The process is waiting to be assigned to a processor
+19:53 < tushaar> 5. terminated:  The process has finished execution
+19:54 < tushaar> Clear?
+19:54 < shreyas> yes
+19:54 < akash__> yes
+19:54 < tushaar> Cool!
+19:54 < shilpi23pandey> yes
+19:54 < Meenakshi> yes
+19:55 < tushaar> Next let's look at process control block (PCB).
+19:56 < tushaar> Look at this: https://imagebin.ca/v/3jXKprILwYpr
+19:57 < tushaar> Simply put, Information associated with each process 
+19:57 < tushaar> PCB is also called task control block!
+19:57 < tushaar> 1. Process state – running, waiting, etc
+19:58 < tushaar> 2. Program counter – location of instruction to next execute
+19:58 < tushaar> 3. CPU registers – contents of all process-centric registers
+19:58 < tushaar> 4. CPU scheduling information- priorities, scheduling queue pointers
+19:58 < tushaar> 5. Memory-management information – memory allocated to the process
+19:58 < tushaar> 6. Accounting information – CPU used, clock time elapsed since start, time limits
+19:58 < tushaar> 7. I/O status information – I/O devices allocated to process, list of open files
+19:59 < tushaar> Self Study: Threads and Multithreading.
+20:00 < tushaar> Any doubts so far?
+20:00 < akash__> nope
+20:00 < shreyas> no
+20:00 < shilpi23pandey> none
+20:00 < Meenakshi> no
+20:01 < tushaar> Next is the most important topic.
+20:01 < tushaar> Process scheduling.
+20:02 < tushaar> To maximize CPU use, quickly switch processes onto CPU for time sharing, Process scheduler selects among available processes for next execution on CPU.
+20:02 < tushaar> The process scheduler maintains the following-
+20:02 < tushaar> 1. Job queue – set of all processes in the system
+20:02 < tushaar> 2. Ready queue – set of all processes residing in main memory, ready and waiting to execute
+20:02 < tushaar> 3. Device queues – set of processes waiting for an I/O device
+20:03 < tushaar> Processes move between the queues.
+20:03 < tushaar> One small yet important topic- context switch.
+20:03 < tushaar> When CPU switches to another process, the system must save the state of the old 
+                 process and load the saved state for the new process via a context switch
+20:03 < tushaar> Context of a process represented in the PCB
+20:03 < tushaar> Context-switch time is overhead; the system does no useful work while switching
+20:04 < tushaar> Now question time!
+20:04 < tushaar> Is moving from kernel mode to user mode costlier than context switch and why?
+20:07 < tushaar> Anyone?
+20:11 < tushaar> When executing a printf statement, you issue printf, it goes to kernel (basically 
+                 the OS), which then executes write system call.
+20:13 < tushaar> See this- https://imagebin.ca/v/3jXQ0opAeE1d
+20:13 < tushaar> This change from user mode to kernel mode only requires a change in the mode bit.
+20:14 < shilpi23pandey> okay 
+20:14 < tushaar> Mode bit- (0) indicates kernel mode, (1) indicates user mode.
+20:15 < tushaar> Now which of context switch or this movement from user mode to kernel mode is 
+                 costlier?
+20:15 < Meenakshi> means no need to save the state of processes?..only mode bit
+20:15 < shilpi23pandey> context switch?
+20:16 < tushaar> Yeah. Context switch is costlier as inverting a bit is sufficient to move from 
+                 kernel to user modes.
+20:16 < tushaar> Any doubts so far?
+20:16 < shilpi23pandey> no
+20:17 < shreyas> clear.
+20:17 < Meenakshi> no
+20:17 < akash__> no
+20:17 < tushaar> A process is uniquely identified by its process id (pid).
+20:17 < tushaar> Parent process create children processes, which, in turn create other processes, 
+                 forming a tree of processes
+20:18 < Meenakshi> process no. and id are different?
+20:18 < tushaar> They're more or less the same.
+20:19 < Meenakshi> okay
+20:19 < tushaar> Check this out- https://imagebin.ca/v/3jXRjb600swz
+20:19 < tushaar> This is basically how your computer starts.
+20:20 < tushaar> In unix, fork() system call creates new process and exec() system call used after a fork() to replace the process’ memory space with a new program
+20:21 < tushaar> Check this out- https://imagebin.ca/v/3jXSQN4lQAlv
+20:21 < tushaar> Process executes last statement and then asks the operating system to delete it 
+                 using the exit() system call.
+20:21 < tushaar> Self Study: wait() and abort() system calls.
+20:22 < tushaar> Next topic is Interprocess communication.
+20:22 < tushaar> Usually, refered to as IPC.
+20:23 < tushaar> Two models of IPC- Shared memory and Message passing.
+20:23 < tushaar> We have already discussed about these.
+20:24 < shreyas> ya cool
+20:25 < tushaar> Look at this- https://imagebin.ca/v/3jXTq6XSLiCL
+20:27 < tushaar> We'll continue with the rest in the next session.
+20:27 < shilpi23pandey> cool
+20:27 < shreyas> thanks
+20:28 < tushaar> Thank you for attending the session and logs will be put up for further reference.
